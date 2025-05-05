@@ -1,31 +1,49 @@
 #!/bin/bash
 
+# Exit immediately on error
+set -e
+
 # Ask for the new branch name
 read -p "Enter new branch name: " branchname
 
-# Create and switch to new branch
-git checkout -b "$branchname" || { echo "Failed to create branch."; exit 1; }
-
-# Ask for path to the new version of the project
-read -p "Enter path to the new project version (relative or absolute): " new_version_path
-
-# Check if the path exists
-if [ ! -d "$new_version_path" ]; then
-    echo "Directory does not exist: $new_version_path"
+# Check if branch already exists
+if git show-ref --verify --quiet "refs/heads/$branchname"; then
+    echo "Branch '$branchname' already exists locally."
     exit 1
 fi
 
-# Copy new version into current repo folder (overwrite existing files)
-cp -r "$new_version_path"/. . || { echo "Copy failed."; exit 1; }
+# Create and switch to the new branch
+git checkout -b "$branchname"
 
-# Add all changes
+# Ask for new project version path
+read -p "Enter path to the new project version: " new_version_path
+
+# Check if the folder exists
+if [ ! -d "$new_version_path" ]; then
+    echo "❌ Directory '$new_version_path' does not exist."
+    exit 1
+fi
+
+# Copy all files into repo (overwrite)
+cp -a "$new_version_path"/. ./
+
+# Show changes
+echo "📄 Git status before commit:"
+git status
+
+# Ask to proceed
+read -p "Continue with commit? (y/n): " confirm
+if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+    echo "❌ Aborted."
+    exit 0
+fi
+
+# Add and commit changes
 git add .
-
-# Ask for commit message
 read -p "Enter commit message: " commitmsg
-git commit -m "$commitmsg" || { echo "Commit failed."; exit 1; }
+git commit -m "$commitmsg"
 
-# Push new branch to remote and set upstream
-git push -u origin "$branchname" || { echo "Push failed. Make sure you have access."; exit 1; }
+# Push to origin
+git push -u origin "$branchname"
 
-echo "✅ New version committed and pushed to remote branch '$branchname'."
+echo "✅ New version pushed to remote branch '$branchname'."
