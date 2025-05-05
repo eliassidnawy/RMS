@@ -1,26 +1,31 @@
 #!/bin/bash
 
-# Step 1: Ask for the new branch name
+# Ask for the new branch name
 read -p "Enter new branch name: " branchname
 
-# Step 2: Create and switch to the new branch
-git checkout -b "$branchname" || { echo "Failed to create branch"; exit 1; }
+# Create and switch to new branch
+git checkout -b "$branchname" || { echo "Failed to create branch."; exit 1; }
 
-# Step 3: Ask for the path to the new project version
+# Ask for path to the new version of the project
 read -p "Enter path to the new project version (relative or absolute): " new_version_path
 
-# Step 4: Copy the new version into the repo (overwrite existing)
-cp -r "$new_version_path"/. . || { echo "Failed to copy new version files"; exit 1; }
-
-# Step 5: Add and commit changes
-git add .
-read -p "Enter commit message for the new version: " commitmsg
-git commit -m "$commitmsg"
-
-# Step 6: Ask if user wants to push
-read -p "Do you want to push this branch to origin? (y/n): " pushRemote
-if [[ "$pushRemote" == "y" || "$pushRemote" == "Y" ]]; then
-    git push -u origin "$branchname"
+# Check if the path exists
+if [ ! -d "$new_version_path" ]; then
+    echo "Directory does not exist: $new_version_path"
+    exit 1
 fi
 
-echo "✅ New version committed to branch '$branchname'"
+# Copy new version into current repo folder (overwrite existing files)
+cp -r "$new_version_path"/. . || { echo "Copy failed."; exit 1; }
+
+# Add all changes
+git add .
+
+# Ask for commit message
+read -p "Enter commit message: " commitmsg
+git commit -m "$commitmsg" || { echo "Commit failed."; exit 1; }
+
+# Push new branch to remote and set upstream
+git push -u origin "$branchname" || { echo "Push failed. Make sure you have access."; exit 1; }
+
+echo "✅ New version committed and pushed to remote branch '$branchname'."
