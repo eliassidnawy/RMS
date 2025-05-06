@@ -9,7 +9,7 @@ wwv_flow_imp.component_begin (
 ,p_default_workspace_id=>2400844168204824
 ,p_default_application_id=>101
 ,p_default_id_offset=>0
-,p_default_owner=>'S1'
+,p_default_owner=>'RMS_AP'
 );
 wwv_flow_imp.g_varchar2_table := wwv_flow_imp.empty_varchar2_table;
 wwv_flow_imp.g_varchar2_table(1) := '20205B0D0A202020207B0D0A202020202020226964223A20302C0D0A20202020202022736572696573223A20225365726965732031222C0D0A2020202020202271756172746572223A20225131222C0D0A2020202020202276616C7565223A2037340D0A';

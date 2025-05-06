@@ -9,7 +9,7 @@ wwv_flow_imp.component_begin (
 ,p_default_workspace_id=>2400844168204824
 ,p_default_application_id=>101
 ,p_default_id_offset=>0
-,p_default_owner=>'S1'
+,p_default_owner=>'RMS_AP'
 );
 wwv_flow_imp_shared.create_list(
  p_id=>wwv_flow_imp.id(69793397327825975)
@@ -38,6 +38,13 @@ wwv_flow_imp_shared.create_list_item(
 ,p_list_item_display_sequence=>30
 ,p_list_item_link_text=>'Dashboard'
 ,p_list_item_link_target=>'f?p=&APP_ID.:6:&SESSION.::&DEBUG.::::'
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_imp_shared.create_list_item(
+ p_id=>wwv_flow_imp.id(83498242032337967)
+,p_list_item_display_sequence=>40
+,p_list_item_link_text=>'Restyle Dashboard'
+,p_list_item_link_target=>'f?p=&APP_ID.:7:&SESSION.::&DEBUG.::::'
 ,p_list_item_current_type=>'TARGET_PAGE'
 );
 wwv_flow_imp.component_end;

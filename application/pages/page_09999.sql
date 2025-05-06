@@ -9,7 +9,7 @@ wwv_flow_imp.component_begin (
 ,p_default_workspace_id=>2400844168204824
 ,p_default_application_id=>101
 ,p_default_id_offset=>0
-,p_default_owner=>'S1'
+,p_default_owner=>'RMS_AP'
 );
 wwv_flow_imp_page.create_page(
  p_id=>9999
@@ -19,13 +19,13 @@ wwv_flow_imp_page.create_page(
 ,p_warn_on_unsaved_changes=>'N'
 ,p_first_item=>'AUTO_FIRST_ITEM'
 ,p_autocomplete_on_off=>'OFF'
-,p_step_template=>wwv_flow_imp.id(69802011193825998)
+,p_step_template=>wwv_flow_imp.id(82887331987831888)
 ,p_page_template_options=>'#DEFAULT#'
 ,p_page_is_public_y_n=>'Y'
 ,p_protection_level=>'C'
 ,p_page_component_map=>'12'
-,p_last_updated_by=>'N.JUREIDINI'
-,p_last_upd_yyyymmddhh24miss=>'20250411143227'
+,p_last_updated_by=>'JWOON'
+,p_last_upd_yyyymmddhh24miss=>'20250502164634'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(70086835108826214)
@@ -49,9 +49,6 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_is_hot=>'Y'
 ,p_button_image_alt=>'Sign In'
 ,p_button_position=>'NEXT'
-,p_button_alignment=>'LEFT'
-,p_grid_new_row=>'Y'
-,p_grid_new_column=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(70087339739826218)
@@ -64,14 +61,12 @@ wwv_flow_imp_page.create_page_item(
 ,p_cSize=>40
 ,p_cMaxlength=>100
 ,p_tag_attributes=>'autocomplete="username"'
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_imp.id(69966542528826057)
 ,p_item_icon_css_classes=>'fa-user'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'N'
-,p_attribute_03=>'N'
 ,p_attribute_04=>'TEXT'
 ,p_attribute_05=>'NONE'
 );
@@ -86,7 +81,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_cSize=>40
 ,p_cMaxlength=>100
 ,p_tag_attributes=>'autocomplete="current-password"'
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_imp.id(69966542528826057)
 ,p_item_icon_css_classes=>'fa-key'
 ,p_item_template_options=>'#DEFAULT#'
@@ -100,13 +94,11 @@ wwv_flow_imp_page.create_page_item(
 ,p_item_plug_id=>wwv_flow_imp.id(70086835108826214)
 ,p_prompt=>'Remember username'
 ,p_display_as=>'NATIVE_SINGLE_CHECKBOX'
-,p_label_alignment=>'RIGHT'
 ,p_display_when=>'apex_authentication.persistent_cookies_enabled'
 ,p_display_when2=>'PLSQL'
 ,p_display_when_type=>'EXPRESSION'
 ,p_field_template=>wwv_flow_imp.id(69966542528826057)
 ,p_item_template_options=>'#DEFAULT#'
-,p_escape_on_http_output=>'N'
 ,p_attribute_01=>'Y'
 );
 wwv_flow_imp_page.create_page_process(

@@ -9,7 +9,7 @@ wwv_flow_imp.component_begin (
 ,p_default_workspace_id=>2400844168204824
 ,p_default_application_id=>101
 ,p_default_id_offset=>0
-,p_default_owner=>'S1'
+,p_default_owner=>'RMS_AP'
 );
 wwv_flow_imp_shared.create_theme_style(
  p_id=>wwv_flow_imp.id(70058562260826177)
@@ -30,7 +30,7 @@ wwv_flow_imp_shared.create_theme_style(
  p_id=>wwv_flow_imp.id(70058760441826177)
 ,p_theme_id=>42
 ,p_name=>'Vita'
-,p_is_current=>true
+,p_is_current=>false
 ,p_is_public=>true
 ,p_is_accessible=>true
 ,p_theme_roller_input_file_urls=>'#THEME_FILES#less/theme/Vita.less'
@@ -73,6 +73,27 @@ wwv_flow_imp_shared.create_theme_style(
 ,p_theme_roller_output_file_url=>'#THEME_FILES#css/Vita-Slate#MIN#.css?v=#APEX_VERSION#'
 ,p_theme_roller_read_only=>true
 ,p_reference_id=>3291983347983194966
+);
+wwv_flow_imp_shared.create_theme_style(
+ p_id=>wwv_flow_imp.id(82598115857763078)
+,p_theme_id=>42
+,p_name=>'ACT-STD-Theme'
+,p_is_current=>true
+,p_is_public=>true
+,p_is_accessible=>true
+,p_theme_roller_input_file_urls=>'#THEME_FILES#less/theme/Vita.less'
+,p_theme_roller_config=>'{"classes":[],"vars":{"@g_Body-BG":"#fdfdfd","@g_Body-Text":"#58585a","@g_Actions-Col-BG":"#f9f9f9","@g_Actions-Col-Text":"#000000","@g_Container-BorderRadius":"16px","@g_Body-Title-BG":"#ffffff","@g_Body-Title-FG":"#525062","@g_Accent-BG":"#01271d",'
+||'"@g_Region-Header-BG":"#ffffff","@g_Region-Header-FG":"#262626","@l_Left-Col-BG":"#ffffff","@l_Left-Col-Text":"#000000","@g_Nav-Accent-BG":"#4d6861","@g_Nav-Accent-FG":"#f4fcff","@g_NavBarMenu-BG":"#FFFFFF","@g_NavBarMenu-FG":"#262626","@g_Region-BG"'
+||':"#ffffff","@g_Region-FG":"#01271d","@g_Form-Item-BG":"#f9f9f9","@g_Form-Item-FG":"#202020","@irrBg":"#ffffff","@l_Button-Primary-BG":"#01271d","@l_Button-Primary-Text":"#ffffff","@g_Nav_Style":"dark","@g_Form-BorderRadius":"6px","@g_Button-BorderRad'
+||'ius":"12px","@Actions-Exp":"200px","@Head-Height":"48px","@g_Link-Base":"#34524a","@l_Button-Danger-BG":"#c13646","@l_Button-Danger-Text":"#ffffff","@l_Button-Warning-BG":"#ff8800","@l_Button-Warning-Text":"#ffffff","@l_Button-Success-BG":"#388d3a","'
+||'@l_Button-Success-Text":"#ffffff","@g_Form-Label":"#a9a8b1","@g_Color-Palette-1":"#e6ecef","@g_Color-Palette-1-FG":"#01271d","@g_Color-Palette-2":"#cdcdcf","@g_Color-Palette-2-FG":"#a9a8b1","@g_Color-Palette-3":"#e6e9e8","@g_Color-Palette-3-FG":"#809'
+||'38e","@g_Color-Palette-4":"#395791","@g_Color-Palette-4-FG":"#c7d0e3","@g_Color-Palette-5":"#d3dae9","@g_Color-Palette-5-FG":"#1121ea","@g_Color-Palette-6":"#b5dfb6","@g_Color-Palette-6-FG":"#46b049","@g_Color-Palette-7":"#f1eee2","@g_Color-Palette-7'
+||'-FG":"#ff8800","@g_Color-Palette-8":"#f5bec6","@g_Color-Palette-8-FG":"#c13646","@g_Color-Palette-9":"#e2e2e5","@g_Color-Palette-9-FG":"#231f20","@g_Color-Palette-10":"#26dd92","@g_Color-Palette-10-FG":"#e1fbf0","@g_Color-Palette-11":"#01271d","@g_Co'
+||'lor-Palette-11-FG":"#e6e9e8","@g_Color-Palette-12":"#01271d","@g_Color-Palette-12-FG":"#80938e","@g_Color-Palette-13":"#ffffff","@g_Color-Palette-13-FG":"#e9eef0","@g_Color-Palette-14":"#ffffff","@g_Color-Palette-14-FG":"#ffffff","@g_Color-Palette-15'
+||'":"#ccd4d2","@g_Color-Palette-15-FG":"#f3f3f4","@g_Button-BG":"#e6e9e8","@g_Button-Text":"#4d6861","@l_Button-Simple-BG":"#c3e9a0","@l_Button-Simple-Text":"#231f20","@l_Button-Hot-BG":"#c3e9a0","@l_Button-Hot-Text":"#01271d","@g_Header-BG":"#01271d",'
+||'"@g_Header-FG":"#ffffff"},"customCSS":"","useCustomLess":"N"}'
+,p_theme_roller_output_file_url=>'#THEME_DB_FILES#82598115857763078.css'
+,p_theme_roller_read_only=>false
 );
 wwv_flow_imp.component_end;
 end;

@@ -9,11 +9,11 @@ wwv_flow_imp.component_begin (
 ,p_default_workspace_id=>2400844168204824
 ,p_default_application_id=>101
 ,p_default_id_offset=>0
-,p_default_owner=>'S1'
+,p_default_owner=>'RMS_AP'
 );
 wwv_imp_workspace.create_flow(
  p_id=>wwv_flow.g_flow_id
-,p_owner=>nvl(wwv_flow_application_install.get_schema,'S1')
+,p_owner=>nvl(wwv_flow_application_install.get_schema,'RMS_AP')
 ,p_name=>nvl(wwv_flow_application_install.get_application_name,'RMS')
 ,p_alias=>nvl(wwv_flow_application_install.get_application_alias,'RMS')
 ,p_page_view_logging=>'YES'
@@ -38,6 +38,7 @@ wwv_imp_workspace.create_flow(
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
 ,p_flow_version=>'Release 1.0'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
+,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'
 ,p_browser_cache=>'N'
 ,p_browser_frame=>'S'
@@ -46,10 +47,10 @@ wwv_imp_workspace.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'RMS'
-,p_last_updated_by=>'N.JUREIDINI'
-,p_last_upd_yyyymmddhh24miss=>'20250429151540'
+,p_last_updated_by=>'E.SIDNAOUI'
+,p_last_upd_yyyymmddhh24miss=>'20250506103851'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
-,p_files_version=>11
+,p_files_version=>81
 ,p_print_server_type=>'INSTANCE'
 ,p_file_storage=>'DB'
 ,p_is_pwa=>'Y'
