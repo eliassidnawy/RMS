@@ -287,7 +287,7 @@ wwv_flow_imp_page.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_page_component_map=>'27'
 ,p_last_updated_by=>'N.JUREIDINI'
-,p_last_upd_yyyymmddhh24miss=>'20250513101902'
+,p_last_upd_yyyymmddhh24miss=>'20250514105432'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(73431366183648917)
@@ -311,7 +311,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_region_css_classes=>'component-badge-block size-huge align-left'
 ,p_region_template_options=>'#DEFAULT#:t-Form--leftLabels:t-Form--labelsAbove'
 ,p_plug_template=>wwv_flow_imp.id(69830917595826011)
-,p_plug_display_sequence=>40
+,p_plug_display_sequence=>50
 ,p_plug_new_grid_row=>false
 ,p_query_type=>'SQL'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
@@ -551,6 +551,61 @@ wwv_flow_imp_page.create_region_column(
 ,p_is_primary_key=>false
 );
 wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(85680095909147322)
+,p_plug_name=>unistr('Avancement Activit\00E9 Chart')
+,p_parent_plug_id=>wwv_flow_imp.id(73431366183648917)
+,p_region_css_classes=>'MeterGaugeStroke'
+,p_icon_css_classes=>'fa-american-sign-language-interpreting'
+,p_region_template_options=>'#DEFAULT#:t-Form--standardPadding'
+,p_component_template_options=>'#DEFAULT#'
+,p_escape_on_http_output=>'Y'
+,p_plug_template=>wwv_flow_imp.id(69829573963826010)
+,p_plug_display_sequence=>40
+,p_plug_grid_column_span=>8
+,p_plug_source_type=>'NATIVE_JET_CHART'
+,p_plug_header=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'<style>',
+'#jetchart_jet {',
+'  height: 100vh !important;',
+'}',
+'</style>'))
+);
+wwv_flow_imp_page.create_jet_chart(
+ p_id=>wwv_flow_imp.id(85680157376147323)
+,p_region_id=>wwv_flow_imp.id(85680095909147322)
+,p_chart_type=>'donut'
+,p_height=>'400'
+,p_animation_on_display=>'zoom'
+,p_animation_on_data_change=>'auto'
+,p_data_cursor=>'auto'
+,p_data_cursor_behavior=>'auto'
+,p_hover_behavior=>'dim'
+,p_value_format_type=>'decimal'
+,p_value_decimal_places=>0
+,p_value_format_scaling=>'none'
+,p_tooltip_rendered=>'Y'
+,p_show_series_name=>true
+,p_show_value=>true
+,p_legend_rendered=>'off'
+,p_pie_other_threshold=>0
+,p_pie_selection_effect=>'highlight'
+);
+wwv_flow_imp_page.create_jet_chart_series(
+ p_id=>wwv_flow_imp.id(85680267005147324)
+,p_chart_id=>wwv_flow_imp.id(85680157376147323)
+,p_seq=>10
+,p_name=>'Chart'
+,p_data_source_type=>'SQL'
+,p_data_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+unistr('select sum(NUMBER_UP_ORDERED)- sum(NUMBER_UP_REMAINING) AS VALUE, ''Lanc\00E9es'' AS LABEL from PROGRESS_OVERVIEW where TOUR_STATUS_CODE = ''L'''),
+'UNION',
+'SELECT (select sum(NUMBER_UP_ORDERED) from PROGRESS_OVERVIEW where TOUR_STATUS_CODE = ''A'') + ',
+'(select sum(NUMBER_UP_REMAINING) from PROGRESS_OVERVIEW where TOUR_STATUS_CODE = ''L'') AS VALUE, ''En attentes'' AS LABEL FROM DUAL;'))
+,p_items_value_column_name=>'VALUE'
+,p_items_label_column_name=>'LABEL'
+,p_items_label_rendered=>false
+);
+wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(6870771471532930813)
 ,p_plug_name=>unistr('Avancement Activit\00E9 Chart')
 ,p_region_name=>'gauge-segmented'
@@ -564,6 +619,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_grid_column_span=>8
 ,p_plug_source_type=>'NATIVE_JET_CHART'
 ,p_plug_query_num_rows=>15
+,p_plug_display_condition_type=>'NEVER'
 ,p_plug_header=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<style>',
 '#jetchart_jet {',
@@ -596,7 +652,7 @@ wwv_flow_imp_page.create_jet_chart_series(
 ,p_name=>'Chart'
 ,p_data_source_type=>'SQL'
 ,p_data_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT TO_NUMBER(:P9000_GAUGE_VALUE) as value, 100 as max, ''label'' as label',
+'SELECT TO_NUMBER(:P9000_AVANCEMENT_ACT_VAL) as value, 100 as max, ''label'' as label',
 'FROM dual;'))
 ,p_items_value_column_name=>'VALUE'
 ,p_items_max_value=>'MAX'
@@ -832,6 +888,18 @@ wwv_flow_imp_page.create_page_plug(
   '"SIZE": "t-Badge--lg"',
 '}'))
 );
+wwv_flow_imp.component_end;
+end;
+/
+begin
+wwv_flow_imp.component_begin (
+ p_version_yyyy_mm_dd=>'2023.10.31'
+,p_release=>'23.2.0'
+,p_default_workspace_id=>2400844168204824
+,p_default_application_id=>101
+,p_default_id_offset=>0
+,p_default_owner=>'RMS_AP'
+);
 wwv_flow_imp_page.create_region_column(
  p_id=>wwv_flow_imp.id(73924688502340020)
 ,p_name=>'VALUE'
@@ -887,18 +955,6 @@ wwv_flow_imp_page.create_page_plug(
   '"SHAPE": "t-Badge--rounded",',
   '"SIZE": "t-Badge--lg"',
 '}'))
-);
-wwv_flow_imp.component_end;
-end;
-/
-begin
-wwv_flow_imp.component_begin (
- p_version_yyyy_mm_dd=>'2023.10.31'
-,p_release=>'23.2.0'
-,p_default_workspace_id=>2400844168204824
-,p_default_application_id=>101
-,p_default_id_offset=>0
-,p_default_owner=>'RMS_AP'
 );
 wwv_flow_imp_page.create_region_column(
  p_id=>wwv_flow_imp.id(73925088430340024)
@@ -1066,52 +1122,9 @@ wwv_flow_imp_page.create_jet_chart_series(
 ,p_name=>'New'
 ,p_data_source_type=>'SQL'
 ,p_data_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT',
-'    CASE :G_ACT_ANTERIEURES',
-'        WHEN ''N'' THEN (',
-'            SELECT NVL(ROUND(SUM(REMAINING_LOAD_H)),0) AS REMAINING_LOAD_H ',
-'            FROM WORKLOAD_RESTYPE_DAY',
-'            WHERE SITE_ID = :G_SITE',
-'              AND LOAD_LATEST_DATE = TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
-'              AND RESOURCE_TYPE_CODE = ''C''',
-'        )',
-'        WHEN ''Y'' THEN (',
-'            SELECT NVL(ROUND(SUM(REMAINING_LOAD_H)),0) AS REMAINING_LOAD_H ',
-'            FROM WORKLOAD_RESTYPE_DAY',
-'            WHERE SITE_ID = :G_SITE',
-'              AND LOAD_LATEST_DATE <= TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
-'              AND RESOURCE_TYPE_CODE = ''C''',
-'        )',
-'    END AS VALUE,',
-'    (WITH DISPO_TIMEWINDOWS AS (',
-'            SELECT "START",',
-'                   "END",',
-'                   WEIGHTED_NUMBER_RESOURCES',
-'              FROM RESOURCE_SCHEDULE RS,',
-'                   CFG_RESOURCE_TYPE RT',
-'             WHERE RS.RESOURCE_TYPE_ID = RT.ID',
-'               AND SITE_ID = :G_SITE',
-'               AND RT.CODE = ''C''',
-'               AND "START" < TRUNC(TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')) + 1',
-'               AND "END" > TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
-'',
-'        ),',
-'    MODIFIED_TIMEWINDOWS AS (',
-'        SELECT GREATEST("START",TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')) "START",',
-'               LEAST("END",TRUNC(TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY''))+1) "END",',
-'               WEIGHTED_NUMBER_RESOURCES',
-'          FROM DISPO_TIMEWINDOWS',
-'',
-'        ),',
-'    TIMESPANS AS ( ',
-'            SELECT MT.*,',
-'                   24*("END" - "START") AS TIMESPAN',
-'              FROM MODIFIED_TIMEWINDOWS MT',
-'        )',
-'    SELECT NVL(SUM(WEIGHTED_NUMBER_RESOURCES * TIMESPAN),0) AS WEIGHTED_NUMBER_RESOURCES',
-'      FROM TIMESPANS TS',
-'    ) AS MAX',
-'FROM DUAL;'))
+'SELECT TO_NUMBER(:P9000_CHART_CARISTE_VAL) AS VALUE,',
+'       TO_NUMBER(:P9000_CHART_CARISTE_MAX) AS MAX',
+'FROM dual;'))
 ,p_items_value_column_name=>'VALUE'
 ,p_items_max_value=>'MAX'
 ,p_color=>'#388d3a'
@@ -1211,11 +1224,12 @@ wwv_flow_imp_page.create_jet_chart_series(
 ,p_seq=>10
 ,p_name=>'New'
 ,p_data_source_type=>'SQL'
-,p_data_source=>'select 60 as val, 240 as max, 0 as min, ''label'' as label from dual;'
-,p_items_value_column_name=>'VAL'
-,p_items_min_value=>'MIN'
+,p_data_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT TO_NUMBER(:P9000_CHART_PREP_VAL) AS VALUE,',
+'       TO_NUMBER(:P9000_CHART_PREP_MAX) AS MAX',
+'FROM dual;'))
+,p_items_value_column_name=>'VALUE'
 ,p_items_max_value=>'MAX'
-,p_items_label_column_name=>'LABEL'
 ,p_color=>'#388d3a'
 ,p_items_label_rendered=>false
 ,p_threshold_display=>'onIndicator'
@@ -1338,7 +1352,7 @@ wwv_flow_imp_page.create_page_item(
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(84606002644671026)
-,p_name=>'P9000_GAUGE_VALUE'
+,p_name=>'P9000_AVANCEMENT_ACT_VAL'
 ,p_item_sequence=>30
 ,p_item_plug_id=>wwv_flow_imp.id(6870770370006930802)
 ,p_use_cache_before_default=>'NO'
@@ -1351,36 +1365,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_imp.id(73432988416648933)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'Client'
-,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'WITH DISPO_TIMEWINDOWS AS (',
-'            SELECT "START",',
-'                   "END",',
-'                   WEIGHTED_NUMBER_RESOURCES',
-'              FROM RESOURCE_SCHEDULE RS,',
-'                   CFG_RESOURCE_TYPE RT',
-'             WHERE RS.RESOURCE_TYPE_ID = RT.ID',
-'               AND SITE_ID = ''a0885e12-b455-48cf-a659-1c8cebcef4a7''',
-'               AND RT.CODE = ''C''',
-'               AND "START" < TRUNC(TO_DATE(''12/01/2024'', ''DD/MM/YYYY'')) + 1',
-'               AND "END" > TO_DATE(''12/01/2024'', ''DD/MM/YYYY'')',
-'',
-'        ),',
-'    MODIFIED_TIMEWINDOWS AS (',
-'        SELECT GREATEST("START",TO_DATE(''12/01/2024'', ''DD/MM/YYYY'')) "START",',
-'               LEAST("END",TRUNC(TO_DATE(''12/01/2024'', ''DD/MM/YYYY''))+1) "END",',
-'               WEIGHTED_NUMBER_RESOURCES',
-'          FROM DISPO_TIMEWINDOWS',
-'',
-'        ),',
-'    TIMESPANS AS ( ',
-'            SELECT MT.*,',
-'                   24*("END" - "START") AS TIMESPAN',
-'              FROM MODIFIED_TIMEWINDOWS MT',
-'        )',
-'    SELECT SUM(WEIGHTED_NUMBER_RESOURCES * TIMESPAN) || ''h'' AS WEIGHTED_NUMBER_RESOURCES',
-'      FROM TIMESPANS TS'))
-,p_source_type=>'QUERY'
 ,p_display_as=>'NATIVE_DISPLAY_ONLY'
 ,p_tag_css_classes=>'indicator-label-meter'
 ,p_field_template=>wwv_flow_imp.id(69966542528826057)
@@ -1397,8 +1381,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_imp.id(73433830711648942)
 ,p_use_cache_before_default=>'NO'
-,p_source=>'240h'
-,p_source_type=>'STATIC'
 ,p_display_as=>'NATIVE_DISPLAY_ONLY'
 ,p_tag_css_classes=>'indicator-label-meter'
 ,p_field_template=>wwv_flow_imp.id(69966542528826057)
@@ -1408,6 +1390,42 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_02=>'VALUE'
 ,p_attribute_04=>'Y'
 ,p_attribute_05=>'PLAIN'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(85678768976147309)
+,p_name=>'P9000_CHART_CARISTE_VAL'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_imp.id(6870770370006930802)
+,p_use_cache_before_default=>'NO'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(85679089781147312)
+,p_name=>'P9000_CHART_CARISTE_MAX'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_imp.id(6870770370006930802)
+,p_use_cache_before_default=>'NO'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(85679370769147315)
+,p_name=>'P9000_CHART_PREP_VAL'
+,p_item_sequence=>60
+,p_item_plug_id=>wwv_flow_imp.id(6870770370006930802)
+,p_use_cache_before_default=>'NO'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(85679403662147316)
+,p_name=>'P9000_CHART_PREP_MAX'
+,p_item_sequence=>70
+,p_item_plug_id=>wwv_flow_imp.id(6870770370006930802)
+,p_use_cache_before_default=>'NO'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(6870779962293930848)
@@ -1474,6 +1492,176 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_action=>'NATIVE_REFRESH'
 ,p_affected_elements_type=>'REGION'
 ,p_affected_region_id=>wwv_flow_imp.id(73925920335340033)
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(85678844698147310)
+,p_name=>'POPULATE_AVC_ACTIVITE_VAL'
+,p_event_sequence=>50
+,p_bind_type=>'bind'
+,p_bind_event_type=>'ready'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(85678954768147311)
+,p_event_id=>wwv_flow_imp.id(85678844698147310)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'IF :G_ACT_ANTERIEURES = ''N'' THEN',
+'    SELECT NVL(SUM(NUMBER_TOURS),0)',
+'      INTO :P9000_AVANCEMENT_ACT_VAL',
+'      FROM PROGRESS_OVERVIEW',
+'     WHERE TOUR_STATUS_CODE = ''A''',
+'       AND SITE_ID = :G_SITE',
+'       AND TRUNC(LATEST_AVAIL_DATE) = TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'');',
+'ELSIF :G_ACT_ANTERIEURES = ''O'' THEN',
+'    SELECT NVL(SUM(NUMBER_TOURS),0)',
+'      INTO :P9000_AVANCEMENT_ACT_VAL',
+'      FROM PROGRESS_OVERVIEW',
+'     WHERE TOUR_STATUS_CODE = ''A''',
+'       AND SITE_ID = :G_SITE',
+'       AND TRUNC(LATEST_AVAIL_DATE) <= TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'');',
+'END IF;'))
+,p_attribute_02=>'G_SITE,G_NOW_DATE'
+,p_attribute_03=>'P9000_AVANCEMENT_ACT_VAL'
+,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(85679170542147313)
+,p_name=>'POPULATE_CHART_CARISTE'
+,p_event_sequence=>60
+,p_bind_type=>'bind'
+,p_bind_event_type=>'ready'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(85679213925147314)
+,p_event_id=>wwv_flow_imp.id(85679170542147313)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'IF :G_ACT_ANTERIEURES = ''N'' THEN',
+'    SELECT NVL(ROUND(SUM(REMAINING_LOAD_H)),0) AS REMAINING_LOAD_H',
+'      INTO :P9000_CHART_CARISTE_VAL ',
+'      FROM WORKLOAD_RESTYPE_DAY',
+'     WHERE SITE_ID = :G_SITE',
+'       AND LOAD_LATEST_DATE = TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
+'       AND RESOURCE_TYPE_CODE = ''C'';',
+'ELSIF :G_ACT_ANTERIEURES = ''Y'' THEN',
+'    SELECT NVL(ROUND(SUM(REMAINING_LOAD_H)),0) AS REMAINING_LOAD_H',
+'      INTO :P9000_CHART_CARISTE_VAL ',
+'      FROM WORKLOAD_RESTYPE_DAY',
+'     WHERE SITE_ID = :G_SITE',
+'       AND LOAD_LATEST_DATE <= TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
+'       AND RESOURCE_TYPE_CODE = ''C'';',
+'END IF;',
+'',
+'WITH DISPO_TIMEWINDOWS AS (',
+'            SELECT "START",',
+'                   "END",',
+'                   WEIGHTED_NUMBER_RESOURCES',
+'              FROM RESOURCE_SCHEDULE RS,',
+'                   CFG_RESOURCE_TYPE RT',
+'             WHERE RS.RESOURCE_TYPE_ID = RT.ID',
+'               AND SITE_ID = :G_SITE',
+'               AND RT.CODE = ''C''',
+'               AND "START" < TRUNC(TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')) + 1',
+'               AND "END" > TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
+'',
+'        ),',
+'    MODIFIED_TIMEWINDOWS AS (',
+'        SELECT GREATEST("START",TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')) "START",',
+'               LEAST("END",TRUNC(TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY''))+1) "END",',
+'               WEIGHTED_NUMBER_RESOURCES',
+'          FROM DISPO_TIMEWINDOWS',
+'',
+'        ),',
+'    TIMESPANS AS ( ',
+'            SELECT MT.*,',
+'                   24*("END" - "START") AS TIMESPAN',
+'              FROM MODIFIED_TIMEWINDOWS MT',
+'        )',
+'    SELECT NVL(SUM(WEIGHTED_NUMBER_RESOURCES * TIMESPAN),0) AS WEIGHTED_NUMBER_RESOURCES',
+'      INTO :P9000_CHART_CARISTE_MAX',
+'      FROM TIMESPANS TS;',
+'',
+'    :P9000_CARISTE_MAX_VALUE := :P9000_CHART_CARISTE_MAX || ''h'';'))
+,p_attribute_02=>'G_NOW_DATE,G_SITE'
+,p_attribute_03=>'P9000_CHART_CARISTE_VAL,P9000_CHART_CARISTE_MAX,P9000_CARISTE_MAX_VALUE'
+,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(85679514070147317)
+,p_name=>'POPULATE_CHART_PREP'
+,p_event_sequence=>70
+,p_bind_type=>'bind'
+,p_bind_event_type=>'ready'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(85679662081147318)
+,p_event_id=>wwv_flow_imp.id(85679514070147317)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'IF :G_ACT_ANTERIEURES = ''N'' THEN',
+'    SELECT NVL(ROUND(SUM(REMAINING_LOAD_H)),0) AS REMAINING_LOAD_H',
+'      INTO :P9000_CHART_PREP_VAL ',
+'      FROM WORKLOAD_RESTYPE_DAY',
+'     WHERE SITE_ID = :G_SITE',
+'       AND LOAD_LATEST_DATE = TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
+'       AND RESOURCE_TYPE_CODE = ''P'';',
+'ELSIF :G_ACT_ANTERIEURES = ''Y'' THEN',
+'    SELECT NVL(ROUND(SUM(REMAINING_LOAD_H)),0) AS REMAINING_LOAD_H',
+'      INTO :P9000_CHART_PREP_VAL ',
+'      FROM WORKLOAD_RESTYPE_DAY',
+'     WHERE SITE_ID = :G_SITE',
+'       AND LOAD_LATEST_DATE <= TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
+'       AND RESOURCE_TYPE_CODE = ''P'';',
+'END IF;',
+'',
+'WITH DISPO_TIMEWINDOWS AS (',
+'            SELECT "START",',
+'                   "END",',
+'                   WEIGHTED_NUMBER_RESOURCES',
+'              FROM RESOURCE_SCHEDULE RS,',
+'                   CFG_RESOURCE_TYPE RT',
+'             WHERE RS.RESOURCE_TYPE_ID = RT.ID',
+'               AND SITE_ID = :G_SITE',
+'               AND RT.CODE = ''P''',
+'               AND "START" < TRUNC(TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')) + 1',
+'               AND "END" > TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')',
+'',
+'        ),',
+'    MODIFIED_TIMEWINDOWS AS (',
+'        SELECT GREATEST("START",TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY'')) "START",',
+'               LEAST("END",TRUNC(TO_DATE(:G_NOW_DATE, ''DD/MM/YYYY''))+1) "END",',
+'               WEIGHTED_NUMBER_RESOURCES',
+'          FROM DISPO_TIMEWINDOWS',
+'',
+'        ),',
+'    TIMESPANS AS ( ',
+'            SELECT MT.*,',
+'                   24*("END" - "START") AS TIMESPAN',
+'              FROM MODIFIED_TIMEWINDOWS MT',
+'        )',
+'    SELECT NVL(SUM(WEIGHTED_NUMBER_RESOURCES * TIMESPAN),0) AS WEIGHTED_NUMBER_RESOURCES',
+'      INTO :P9000_CHART_PREP_MAX',
+'      FROM TIMESPANS TS;',
+'    ',
+'    :P9000_PREP_MAX_VALUE := :P9000_CHART_PREP_MAX || ''h'';'))
+,p_attribute_02=>'G_NOW_DATE,G_SITE'
+,p_attribute_03=>'P9000_CHART_PREP_VAL,P9000_PREP_MAX_VALUE'
+,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
 );
 wwv_flow_imp.component_end;
 end;
